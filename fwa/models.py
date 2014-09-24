@@ -20,7 +20,7 @@ class EntityBase( models.Model, NamedModel ):
     brief = models.CharField( max_length=126, blank=True )
     lengthy = models.TextField( blank=True )
     picture = models.ImageField( blank=True )
-    isPublic = models.BooleanField( default=False )
+    public = models.BooleanField( default=False )
     editors = models.ManyToManyField( User, blank=True )
     followers = models.ManyToManyField(
         User, related_name='%(class)ssFollowing', blank=True
@@ -47,7 +47,7 @@ class CreaBase( EntityBase ):
     email = models.EmailField( max_length=254, blank=True )
     phone = models.CharField( max_length=20, blank=True )
     logo = models.ImageField( blank=True )
-    isOfficial = models.BooleanField( default=False )
+    official = models.BooleanField( default=False )
     categories = models.ManyToManyField( 
         CreaCategory, related_name='%(class)ss', blank=True 
     )
@@ -115,7 +115,7 @@ class Event( ProjectBase ):
 ###############################################################################
 
 class Product( ProjectBase ):
-    pass
+    release = models.DateField( null=True, blank=True )
 
 ###############################################################################
 
