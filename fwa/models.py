@@ -79,8 +79,8 @@ class Artist( CreaBase ):
         Area, related_name='artists', 
         null=True, blank=True 
     )
-    # events from fk
-    # coevents from m2m
+    # events & products from fk
+    # coevents & coproducts from m2m
 
 ###############################################################################
 
@@ -132,7 +132,7 @@ class PictureAlbum( models.Model, TitledModel ):
     title = models.CharField( max_length=126, blank=True )
     about = models.TextField( blank=True )
     pictures = models.ManyToManyField( 
-        Picture, through='PictureAlbumEntry' 
+        Picture, through='PictureAlbumEntry', blank=True 
     )
 
     class Meta:
