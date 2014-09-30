@@ -8,26 +8,25 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'r_#85!umujnps%@&vjyyx2^hfj2^z#$*uq$fhe&^*s9vg&ax=p'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-TEMPLATE_DEBUG = True
-
-ALLOWED_HOSTS = []
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 
-# Application definition
+# Automatically detect whether this is running on my development
+# computer, otherwise assuming that the environment is production.
+isProduction = False
+try:
+    open(os.path.join(BASE_DIR,'.dev'))
+except IOError:
+    isProduction = True
+
+PRODUCTION = isProduction
+DEBUG = not isProduction
+TEMPLATE_DEBUG = DEBUG
+
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -37,6 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'fwa',
+    'djangobower',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -53,6 +53,10 @@ ROOT_URLCONF = 'fiddlr.urls'
 
 WSGI_APPLICATION = 'fiddlr.wsgi.application'
 
+
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'templates'),
+)
 
 
 # Internationalization
@@ -89,3 +93,39 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'djangobower.finders.BowerFinder',
+)
+
+
+# django-bower
+BOWER_COMPONENTS_ROOT = BASE_DIR
+
+BOWER_INSTALLED_APPS = (
+    'angular',
+    'angular-bootstrap',
+    'angular-filter',
+    'angular-google-maps',
+    'angular-typeahead',
+    'angular-ui-bootstrap',
+    'angulerjs',
+    'bootstrap',
+    'danialfarid-angular-file-upload',
+    'galleria',
+    'jquery',
+    'less',
+    'lodash',
+    'modernizr',
+    'ng-galleria',
+    'normalize.css',
+    'restangular',
+    'typeahead.js',
+    'underscore',
+)
+
+
+# API key used for Google Maps etc.
+GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')

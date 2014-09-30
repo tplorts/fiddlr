@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en"
+      class="no-js {% block htmlClass %}{% endblock %}"
+      {% block htmlAttributes %}{% endblock %}>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{% block title %}fiddlr{% endblock %}</title>
+    <meta name="description" content="{% block description %}{% endblock %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    {% load staticfiles iroiro %}
+
+    <!-- ================== ICONS ================== -->
+    <link rel="apple-touch-icon-precomposed" href="{% static 'icons/logo-152.png' %}" />
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="{% static 'icons/logo-144.png' %}" />
+    <!-- For iPad with high-resolution Retina display running iOS ≥ 7: -->
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{% static 'icons/logo-152.png' %}" />
+    <!-- For iPad with high-resolution Retina display running iOS ≤ 6: -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'icons/logo-144.png' %}" />
+    <!-- For iPhone with high-resolution Retina display running iOS ≥ 7: -->
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{% static 'icons/logo-120.png' %}" />
+    <!-- For iPhone with high-resolution Retina display running iOS ≤ 6: -->
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'icons/logo-114.png' %}" />
+    <!-- For first- and second-generation iPad: -->
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'icons/logo-72.png' %}" />
+    <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+    <link rel="apple-touch-icon-precomposed" href="{% static 'icons/logo-57.png' %}" />
+    <!-- And for the rest of us -->
+    <link rel="icon" sizes="32x32" href="{% static 'icons/logo-32.png' %}" />
+
+
+      
+    {% block styles3p %}
+      {% if isProduction %}
+        <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+      {% else %}
+        <link rel="stylesheet/less" type="text/css" href="{% static 'bootstrap/less/bootstrap.less' %}" />
+      {% endif %}
+    {% endblock styles3p %}
+
+    {% block stylesBase %}
+      <style type="text/css">
+        {# To avoid flicker due to the latency of LESS compilation or stylesheet download #}
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+      </style>
+      {% if useLESS %}
+        <link rel="stylesheet/less" type="text/css" href="{% static 'my/styles/styles.less' %}" />
+      {% else %}
+        <link rel="stylesheet" type="text/css" href="{% static 'my/styles/styles.compiled.css' %}" />
+      {% endif %}
+    {% endblock stylesBase %}
+    
+    {% block styles %}{% endblock %}
+
+    
+    {% block antescriptsBase %}
+      <script>
+        var isProduction = {{ isProduction|yesno:"true,false" }};
+        var loginPrompted = false;
+        var GoogleAPIKey = '{{ GoogleAPIKey }}';
+        var ngScopeInitials = {
+          {% for symbol, data in ngScopeInitials.items %}
+            {{symbol}}: {{data|toJSON}}{% if not forloop.last %},{% endif %}
+          {% endfor %}
+        };
+      </script>
+
+      {% if useLESS %}
+        <script>
+          var less = {
+              env: "development",
+              async: false,
+              fileAsync: false,
+              poll: 1000,
+              functions: {},
+              dumpLineNumbers: "comments",
+              relativeUrls: false,
+              rootpath: ":/localhost:5000/"
+          };
+        </script>
+        <script src="{% static 'less/dist/less-1.7.5.min.js' %}"></script>
+      {% endif %}
+
+      <script src="{% static 'my/scripts/iroiro.js' %}"></script>
+    {% endblock antescriptsBase %}
+
+    {% block antescripts %}{% endblock %}
+  </head>
+
+
+
+  <body class="{% block bodyClass %}{% endblock %}"
+        ng-app="fiddlr-app"
+        {% block bodyAttributes %}{% endblock %}>
+
+    <!--[if lt IE 8]>
+        <p class="browsehappy">
+          You are using an <strong>outdated</strong> browser. 
+          Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.
+        </p>
+        <![endif]-->
+
+
+    <div id="major-envelope" 
+         class="{% block majorEnvelopeClass %}{% endblock %}">
+      {% block majorEnvelope %}_{% endblock %}
+    </div> <!-- /#major-envelope -->
+
+
+
+    {% block postscripts3p %}
+      {# <script src="{% static 'modernizr/modernizr.js' %}"></script> #}
+      <script src="//maps.googleapis.com/maps/api/js?key={{ GoogleAPIKey }}&sensor=false"></script>
+
+      {% if isProduction %}
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.underscore.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/restangular/1.3.1/restangular.min.js"></script>
+        <script src="{% static 'angular-bootstrap/ui-bootstrap-tpls.min.js' %}"></script>
+        <script src="{% static 'angular-google-maps/dist/angular-google-maps.min.js' %}"></script>
+        <script src="{% static 'danialfarid-angular-file-upload/dist/angular-file-upload.min.js' %}"></script>
+      {% else %}
+        <script src="{% static 'jquery/dist/jquery.js' %}"></script>
+        <script src="{% static 'bootstrap/dist/js/bootstrap.js' %}"></script>
+        <script src="{% static 'lodash/dist/lodash.underscore.js' %}"></script>
+        <script src="{% static 'angular/angular.js' %}"></script>
+        <script src="{% static 'restangular/dist/restangular.js' %}"></script>
+        <script src="{% static 'angular-bootstrap/ui-bootstrap-tpls.js' %}"></script>
+        <script src="{% static 'angular-google-maps/dist/angular-google-maps.js' %}"></script>
+        <script src="{% static 'danialfarid-angular-file-upload/dist/angular-file-upload.js' %}"></script>
+      {% endif %}
+
+      {# <script src="{% static 'djangular/js/django-angular.js' %}"></script> #}
+    {% endblock postscripts3p %}
+
+    {% block angularAppScripts %}
+      {% for appfile in "app.js,controllers.js,directives.js,filters.js,services.js"|split:"," %}
+        <script src="{% static 'my/ng/'|add:appfile %}"></script>
+      {% endfor %}
+    {% endblock angularAppScripts %}
+
+    {% block postscriptsBase %}{% endblock %}
+    {% block postscripts %}{% endblock %}
+    {% block googleAnalytics %}{% endblock %}
+
+  </body>
+</html>
+
