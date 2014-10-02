@@ -31,26 +31,19 @@
     <link rel="icon" sizes="32x32" href="{% static 'icons/logo-32.png' %}" />
 
 
-      
-    {% block styles3p %}
-      {% if isProduction %}
-        <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
-      {% else %}
-        <link rel="stylesheet/less" type="text/css" href="{% static 'bootstrap/less/bootstrap.less' %}" />
-      {% endif %}
-    {% endblock styles3p %}
+    {% block styles3p %}{% endblock styles3p %}
 
     {% block stylesBase %}
       <style type="text/css">
-        {# To avoid flicker due to the latency of LESS compilation or stylesheet download #}
-        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-            display: none !important;
-        }
+       {# To avoid flicker due to the latency of LESS compilation or stylesheet download #}
+       [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+         display: none !important;
+       }
       </style>
       {% if useLESS %}
-        <link rel="stylesheet/less" type="text/css" href="{% static 'my/styles/styles.less' %}" />
+        <link rel="stylesheet/less" type="text/css" href="{% static 'style/main.less' %}" />
       {% else %}
-        <link rel="stylesheet" type="text/css" href="{% static 'my/styles/styles.compiled.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'style/main.compiled.css' %}" />
       {% endif %}
     {% endblock stylesBase %}
     
@@ -59,28 +52,28 @@
     
     {% block antescriptsBase %}
       <script>
-        var isProduction = {{ isProduction|yesno:"true,false" }};
-        var loginPrompted = false;
-        var GoogleAPIKey = '{{ GoogleAPIKey }}';
-        var ngScopeInitials = {
-          {% for symbol, data in ngScopeInitials.items %}
-            {{symbol}}: {{data|toJSON}}{% if not forloop.last %},{% endif %}
-          {% endfor %}
-        };
+       var isProduction = {{ isProduction|yesno:"true,false" }};
+       var loginPrompted = false;
+       var GoogleAPIKey = '{{ GoogleAPIKey }}';
+       var ngScopeInitials = {
+         {% for symbol, data in ngScopeInitials.items %}
+         {{symbol}}: {{data|toJSON}}{% if not forloop.last %},{% endif %}
+         {% endfor %}
+       };
       </script>
 
       {% if useLESS %}
         <script>
-          var less = {
-              env: "development",
-              async: false,
-              fileAsync: false,
-              poll: 1000,
-              functions: {},
-              dumpLineNumbers: "comments",
-              relativeUrls: false,
-              rootpath: ":/localhost:5000/"
-          };
+         var less = {
+           env: "development",
+           async: false,
+           fileAsync: false,
+           poll: 1000,
+           functions: {},
+           dumpLineNumbers: "comments",
+           relativeUrls: false,
+           rootpath: ":/localhost:5000/"
+         };
         </script>
         <script src="{% static 'less/dist/less-1.7.5.min.js' %}"></script>
       {% endif %}
