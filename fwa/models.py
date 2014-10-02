@@ -2,18 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class NamedModel(models.Model):
-    name = models.CharField(max_length=200, blank=True)
-
-    def __str__(self):
-        if len(self.name) > 0:
-            return self.name
-        return '(~unnamed~)'
-
-    class Meta:
-        abstract = True
-
-
 class TitledModel(models.Model):
     title = models.CharField(max_length=200, blank=True)
 
@@ -27,7 +15,7 @@ class TitledModel(models.Model):
 
 ########################################################################
 
-class EntityBase(NamedModel):
+class EntityBase(TitledModel):
     brief = models.CharField(max_length=200, blank=True)
     lengthy = models.TextField(blank=True)
     picture = models.ImageField(blank=True)
@@ -37,12 +25,12 @@ class EntityBase(NamedModel):
         User, related_name='%(class)ssFollowing', blank=True
     )
 
-    class Meta:
+    class Meta(TitledModel.Meta):
         abstract = True
 
 ########################################################################
 
-class CreaCategory(NamedModel):
+class CreaCategory(TitledModel):
     roots = models.ManyToManyField(
         'self',
         symmetrical=False,
@@ -73,10 +61,10 @@ class Venue(CreaBase):
 
 ########################################################################
 
-class City(NamedModel):
+class City(TitledModel):
     pass
 
-class Area(NamedModel):
+class Area(TitledModel):
     city = models.ForeignKey(City, related_name='areas')
     latitude = models.DecimalField(max_digits=10, decimal_places=7)
     longitude = models.DecimalField(max_digits=10, decimal_places=7)
@@ -143,7 +131,7 @@ class PictureAlbum(TitledModel):
         Picture, through='PictureAlbumEntry', blank=True
     )
 
-    class Meta:
+    class Meta(TitledModel.Meta):
         verbose_name_plural = 'picture alba'
 
 class PictureAlbumEntry(models.Model):
@@ -152,7 +140,7 @@ class PictureAlbumEntry(models.Model):
     ordinal = models.FloatField(null=True, blank=True)
 
     def __str__(self):
-        return self.picture.__str__() + '/' + self.album.__str__()
+        return str(self.picture) + '/' + str(self.album)
 
 ########################################################################
 
@@ -167,9 +155,9 @@ class Placard(TitledModel):
         if len(self.title) > 0:
             return self.title
         if self.product:
-            return self.product.__str__()
+            return str(self.product)
         if self.event:
-            return self.event.__str__()
+            return str(self.event)
         return "It's a Mystery"
 
 class PlacardItem(models.Model):
