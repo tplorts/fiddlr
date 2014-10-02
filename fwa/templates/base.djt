@@ -33,10 +33,10 @@
 
     {% block stylesBase %}
       <style type="text/css">
-       {# To avoid flicker due to the latency of LESS compilation or stylesheet download #}
-       [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-         display: none !important;
-       }
+        {# To avoid flicker due to the latency of LESS compilation or stylesheet download #}
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+          display: none !important;
+        }
       </style>
       {% if useLESS %}
         <link rel="stylesheet/less" type="text/css" href="{% static 'style/main.less' %}" />
@@ -47,31 +47,31 @@
     
     {% block styles %}{% endblock %}
 
-    
+
     {% block antescriptsBase %}
       <script>
-       var isProduction = {{ isProduction|yesno:"true,false" }};
-       var loginPrompted = false;
-       var GoogleAPIKey = '{{ GoogleAPIKey }}';
-       var ngScopeInitials = {
-         {% for symbol, data in ngScopeInitials.items %}
-         {{symbol}}: {{data|toJSON}}{% if not forloop.last %},{% endif %}
-         {% endfor %}
-       };
+        var isProduction = {{ isProduction|yesno:"true,false" }};
+        var loginPrompted = false;
+        var GoogleAPIKey = '{{ GoogleAPIKey }}';
+        var ngScopeInitials = {
+          {% for symbol, data in ngScopeInitials.items %}
+          {{symbol}}: {{data|toJSON}}{% if not forloop.last %},{% endif %}
+          {% endfor %}
+        };
       </script>
 
       {% if useLESS %}
         <script>
-         var less = {
-           env: "development",
-           async: false,
-           fileAsync: false,
-           poll: 1000,
-           functions: {},
-           dumpLineNumbers: "comments",
-           relativeUrls: false,
-           rootpath: ":/localhost:5000/"
-         };
+          var less = {
+            env: "development",
+            async: false,
+            fileAsync: false,
+            poll: 1000,
+            functions: {},
+            dumpLineNumbers: "comments",
+            relativeUrls: false,
+            rootpath: ":/localhost:5000/"
+          };
         </script>
         <script src="{% static 'less/dist/less-1.7.5.min.js' %}"></script>
       {% endif %}
