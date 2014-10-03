@@ -71,3 +71,4 @@ bower_components/
 # Compiled from LESS
 main.css
 
+/fwa/static/
