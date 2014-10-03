@@ -39,9 +39,9 @@
         }
       </style>
       {% if useLESS %}
-        <link rel="stylesheet/less" type="text/css" href="{% static 'style/main.less' %}" />
+        <link rel="stylesheet/less" type="text/css" href="{% static 'my/style/main.less' %}" />
       {% else %}
-        <link rel="stylesheet" type="text/css" href="{% static 'style/main.compiled.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'my/style/main.css' %}" />
       {% endif %}
     {% endblock stylesBase %}
     

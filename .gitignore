@@ -68,3 +68,6 @@ bower_components/
 .devmachine
 .dev
 
+# Compiled from LESS
+main.css
+
