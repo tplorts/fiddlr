@@ -4,8 +4,9 @@ from django.views.generic import TemplateView
 from rest_framework import viewsets
 
 from fiddlr import settings
-from fwa.models import Artist
-from fwa.serializers import ArtistSerializer
+from fwa.models import Artist, Venue, Event, Product
+from fwa.serializers import (ArtistSerializer, VenueSerializer, EventSerializer,
+                             ProductSerializer)
 
 
 
@@ -39,3 +40,21 @@ class ArtistViewSet(viewsets.ModelViewSet):
     # pylint: disable=no-member
     queryset = Artist.objects.all()
     serializer_class = ArtistSerializer
+
+
+class VenueViewSet(viewsets.ModelViewSet):
+    # pylint: disable=no-member
+    queryset = Venue.objects.all()
+    serializer_class = VenueSerializer
+
+
+class EventViewSet(viewsets.ModelViewSet):
+    # pylint: disable=no-member
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+
+
+class ProductViewSet(viewsets.ModelViewSet):
+    # pylint: disable=no-member
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
