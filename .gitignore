@@ -72,3 +72,7 @@ bower_components/
 main.css
 
 /fwa/static/
+
+
+# Big files
+scraped-data/
