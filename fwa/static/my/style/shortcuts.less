@@ -1,0 +1,49 @@
+
+.flex-even {
+    flex-grow: 1;
+}
+
+.ib {
+    display: inline-block;
+}
+
+.small-caps {
+    font-variant: small-caps;
+}
+
+
+// Ready-made margins and paddings
+.margin-padding-loop(@pix) when (@pix >= 0) {
+    .margin-padding-loop( (@pix - 5) );
+    .mg@{pix} {
+        margin: @pix;
+    }
+    .mgt@{pix} {
+        margin-top: @pix;
+    }
+    .mgb@{pix} {
+        margin-bottom: @pix;
+    }
+    .mgl@{pix} {
+        margin-left: @pix;
+    }
+    .mgr@{pix} {
+        margin-right: @pix;
+    }
+    .pd@{pix} {
+        padding: @pix;
+    }
+    .pdt@{pix} {
+        padding-top: @pix;
+    }
+    .pdb@{pix} {
+        padding-bottom: @pix;
+    }
+    .pdl@{pix} {
+        padding-left: @pix;
+    }
+    .pdr@{pix} {
+        padding-right: @pix;
+    }
+}
+.margin-padding-loop(150px);

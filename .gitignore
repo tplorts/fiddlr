@@ -61,18 +61,15 @@ target/
 .\#*
 
 
-staticfiles
-
+staticfiles/
+rubbish/
 bower_components/
 
 .devmachine
 .dev
 
 # Compiled from LESS
-main.css
-
-/fwa/static/
-
+compiled.css/
 
 # Big files
 scraped-data/

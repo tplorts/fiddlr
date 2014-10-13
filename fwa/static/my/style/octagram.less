@@ -1,0 +1,62 @@
+@import (less) "standards.less";
+
+
+@Bx: 30px;
+@By: 30px;
+@r: 65px;
+@Er: 5px;
+@Lr: @r + @Er + 1;
+@Cx: @Bx + @Lr;
+@Cy: @By + @Lr;
+.ngram {
+
+    .animation-loop(@count, @a: 0) when (@a < @count) {
+        @-webkit-keyframes ~"ngram-animation-@{a}" {
+            .keyframe-loop(@p, @k: 0) when (@k <= @count) {
+                @t: 2*pi() * @p / @count;
+                @percent: 100 * @k / @count;
+                @percent-str: ~'@{percent}%';
+                @{percent-str} {
+                    margin-left: @Lr + @r*cos(@t) - @Er;
+                    margin-top: @Lr - @r*sin(@t) - @Er;
+                }
+                .keyframe-loop(mod((@p + 2), @count), (@k + 1));
+            }
+            .keyframe-loop(@a);
+        }
+        .ngmpt-@{a} {
+            -webkit-animation-name: ~"ngram-animation-@{a}";
+        }
+        .animation-loop(@count, (@a + 1));
+    }
+
+    &.octagram {
+        .animation-loop(8);
+    }
+
+    .ngmpt-wrapper {
+        position: absolute;
+        width: 2*@Lr;
+        height: 2*@Lr;
+    }
+
+    .ngmpt {
+        position: relative;
+        background-color: @orpheus-purple;
+        border-radius: @Er;
+        width: 2*@Er;
+        height: 2*@Er;
+        -webkit-animation-duration: 8s;
+        -webkit-animation-iteration-count: infinite;
+    }
+}
+
+.ngram-loader {
+    z-index: 10;
+    width: 2*@Lr;
+    height: 2*@Lr;
+    border-radius: @Lr;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

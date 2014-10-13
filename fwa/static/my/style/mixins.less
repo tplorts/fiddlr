@@ -1,0 +1,34 @@
+
+.browser-prefix(@property, @value) {
+    -webkit-@{property}: @value;
+    -moz-@{property}: @value;
+    -o-@{property}: @value;
+    -ms-@{property}: @value;
+    @{property}: @value;
+}
+
+.browser-prefix-both(@property, @value) {
+    -webkit-@{property}: ~"-webkit-@{value}";
+    -moz-@{property}: ~"-moz-@{value}";
+    -o-@{property}: ~"-o-@{value}";
+    -ms-@{property}: ~"-ms-@{value}";
+    @{property}: @value;
+}
+
+.background-size( @size ) {
+    .browser-prefix( background-size, @size );
+}
+
+.cover-background( @imageURL ) {
+    background: url( @imageURL ) no-repeat center center;
+    .background-size( cover );
+}
+
+.order( @order ) {
+    -webkit-box-ordinal-group: @order;
+    -moz-box-ordinal-group: @order;
+    -ms-flex-order: @order;
+    -webkit-order: @order;
+    order: @order;
+}
+

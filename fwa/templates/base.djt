@@ -41,7 +41,8 @@
       {% if useLESS %}
         <link rel="stylesheet/less" type="text/css" href="{% static 'my/style/main.less' %}" />
       {% else %}
-        <link rel="stylesheet" type="text/css" href="{% static 'my/style/main.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/dist/css/bootstrap.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'my/style/compiled.css/styles.css' %}" />
       {% endif %}
     {% endblock stylesBase %}
     
@@ -84,7 +85,7 @@
 
 
 
-  <body class="{% block bodyClass %}{% endblock %}" ng-app="fiddlr-app" {% block bodyAttributes %}{% endblock %}>
+  <body class="{% block bodyClass %}{% endblock %}" ng-app="fiddlrApp" {% block bodyAttributes %}{% endblock %}>
     <!--[if lt IE 8]>
     <p class="browsehappy">
     You are using an <strong>outdated</strong> browser. 
@@ -103,7 +104,7 @@
 
     {% block postscripts3p %}
       {# <script src="{% static 'modernizr/modernizr.js' %}"></script> #}
-      <script src="//maps.googleapis.com/maps/api/js?key={{ GoogleAPIKey }}&sensor=false"></script>
+      <!-- <script src="//maps.googleapis.com/maps/api/js?key={{ GoogleAPIKey }}&sensor=false"></script> -->
 
       {% if isProduction %}
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -115,14 +116,15 @@
         <script src="{% static 'angular-google-maps/dist/angular-google-maps.min.js' %}"></script>
         <script src="{% static 'danialfarid-angular-file-upload/dist/angular-file-upload.min.js' %}"></script>
       {% else %}
-        <script src="{% static 'jquery/dist/jquery.js' %}"></script>
-        <script src="{% static 'bootstrap/dist/js/bootstrap.js' %}"></script>
-        <script src="{% static 'lodash/dist/lodash.underscore.js' %}"></script>
+        <!-- <script src="{% static 'jquery/dist/jquery.js' %}"></script> -->
+        <!-- <script src="{% static 'bootstrap/dist/js/bootstrap.js' %}"></script> -->
+        <!-- <script src="{% static 'lodash/dist/lodash.underscore.js' %}"></script> -->
         <script src="{% static 'angular/angular.js' %}"></script>
+        <script src="{% static 'angular-route/angular-route.js' %}"></script>
         <script src="{% static 'restangular/dist/restangular.js' %}"></script>
         <script src="{% static 'angular-bootstrap/ui-bootstrap-tpls.js' %}"></script>
-        <script src="{% static 'angular-google-maps/dist/angular-google-maps.js' %}"></script>
-        <script src="{% static 'danialfarid-angular-file-upload/dist/angular-file-upload.js' %}"></script>
+        <!-- <script src="{% static 'angular-google-maps/dist/angular-google-maps.js' %}"></script> -->
+        <!-- <script src="{% static 'danialfarid-angular-file-upload/dist/angular-file-upload.js' %}"></script> -->
       {% endif %}
 
       {# <script src="{% static 'djangular/js/django-angular.js' %}"></script> #}
@@ -130,7 +132,7 @@
 
     {% block angularAppScripts %}
       {% for appfile in "app.js,controllers.js,directives.js,filters.js,services.js"|split:"," %}
-        <script src="{% static 'my/ng/'|add:appfile %}"></script>
+        <script src="{% static 'my/js/ng/'|add:appfile %}"></script>
       {% endfor %}
     {% endblock angularAppScripts %}
 
