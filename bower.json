@@ -1,0 +1,35 @@
+{
+  "name": "fiddlr",
+  "version": "0.0.0",
+  "authors": [
+    "Ted Lorts <tplorts@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-bootstrap": "~0.11.2",
+    "angular-filter": "~0.4.6",
+    "angular-typeahead": "~0.2.1",
+    "angular-latest": "~1.2.26",
+    "angular-google-maps": "~1.2.2",
+    "angulerjs": "~1.2.25",
+    "angular-ui-bootstrap": "~0.11.2",
+    "bootstrap": "~3.2.0",
+    "danialfarid-angular-file-upload": "~1.6.12",
+    "galleria": "~1.4.2",
+    "less": "~1.7.5",
+    "modernizr": "~2.8.3",
+    "ng-galleria": "*",
+    "normalize.css": "~3.0.1",
+    "restangular": "~1.4.0",
+    "underscore": "~1.7.0",
+    "angular-route": "~1.2.26"
+  }
+}
