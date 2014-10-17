@@ -104,11 +104,15 @@
       {# <script src="{% static 'modernizr/modernizr.js' %}"></script> #}
       <!-- <script src="//maps.googleapis.com/maps/api/js?key={{ GoogleAPIKey }}&sensor=false"></script> -->
 
+      {% with angularModules="route,resource"|split:"," %}
       {% if isProduction %}
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.underscore.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+	{% for module in angularModules %}
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-{{ module }}.min.js"></script>
+	{% endfor %}
         <script src="//cdnjs.cloudflare.com/ajax/libs/restangular/1.3.1/restangular.min.js"></script>
         <script src="{% static 'angular-bootstrap/ui-bootstrap-tpls.min.js' %}"></script>
         <script src="{% static 'angular-google-maps/dist/angular-google-maps.min.js' %}"></script>
@@ -118,19 +122,21 @@
         <!-- <script src="{% static 'bootstrap/dist/js/bootstrap.js' %}"></script> -->
         <!-- <script src="{% static 'lodash/dist/lodash.underscore.js' %}"></script> -->
         <script src="{% static 'angular/angular.js' %}"></script>
-        <script src="{% static 'angular-route/angular-route.js' %}"></script>
+	{% for module in angularModules %}
+        <script src="{% static 'angular-'|add:module %}/angular-{{ module }}.js"></script>
+	{% endfor %}
         <script src="{% static 'restangular/dist/restangular.js' %}"></script>
         <script src="{% static 'angular-bootstrap/ui-bootstrap-tpls.js' %}"></script>
         <!-- <script src="{% static 'angular-google-maps/dist/angular-google-maps.js' %}"></script> -->
         <!-- <script src="{% static 'danialfarid-angular-file-upload/dist/angular-file-upload.js' %}"></script> -->
       {% endif %}
-
+      {% endwith %}
       {# <script src="{% static 'djangular/js/django-angular.js' %}"></script> #}
     {% endblock postscripts3p %}
 
     {% block angularAppScripts %}
-      {% for appfile in "app.js,controllers.js,directives.js,filters.js,services.js"|split:"," %}
-        <script src="{% static 'my/js/ng/'|add:appfile %}"></script>
+      {% for appfile in "app,controllers,directives,filters,services"|split:"," %}
+        <script src="{% static 'my/js/ng/'|add:appfile %}.js"></script>
       {% endfor %}
     {% endblock angularAppScripts %}
 
