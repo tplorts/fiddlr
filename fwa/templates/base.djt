@@ -76,8 +76,6 @@
         </script>
         <script src="{% static 'less/dist/less-1.7.5.min.js' %}"></script>
       {% endif %}
-
-      <script src="{% static 'my/scripts/iroiro.js' %}"></script>
     {% endblock antescriptsBase %}
 
     {% block antescripts %}{% endblock %}
@@ -86,7 +84,7 @@
 
 
   <body class="{% block bodyClass %}{% endblock %}" ng-app="fiddlrApp" {% block bodyAttributes %}{% endblock %}>
-    <!--[if lt IE 8]>
+    <!--[if lt IE 9]>
     <p class="browsehappy">
     You are using an <strong>outdated</strong> browser. 
     Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.
