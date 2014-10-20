@@ -73,3 +73,7 @@ compiled.css/
 
 # Big files
 scraped-data/
+
+# Model diagrams
+*.dot
+*.dot.*

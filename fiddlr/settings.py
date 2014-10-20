@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'fwa',
     'djangobower',
     'rest_framework',
+    'django_extensions',
 )
 
 REST_FRAMEWORK = {
