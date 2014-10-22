@@ -105,6 +105,11 @@ class Creaty(EntityBase):
     # for people who want to give a location without too much detail.
     address = models.CharField(max_length=300, blank=True)
 
+    # How far this creaty is willing to travel for jobs
+    # null => open to anything
+    # units: kilometres
+    maxDistance = models.PositiveIntegerField(null=True, blank=True)
+
     # Whereas the picture (defined above) is the main image to appear
     # on the profile page, the logo gives creaties the option to
     # specify a smaller image to be used in compact lists and such.
