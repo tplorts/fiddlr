@@ -1,3 +1,5 @@
 from django.contrib import admin
+from fwa.models import Creaty
 
-# Register your models here.
+
+admin.site.register(Creaty)

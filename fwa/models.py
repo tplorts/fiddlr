@@ -1,14 +1,34 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-from fwa.miscellany import strIs
+from django_extensions.db.models import TimeStampedModel
+from django_extensions.db.fields import PostgreSQLUUIDField, AutoSlugField
+
+#from fwa.miscellany import strIs
+
 
 ########################################################################
 
 
-class EntityBase(models.Model):
-    class Meta:
+def entityPicturePath(instance, filename):
+    if instance.uuid is None:
+        pass #TODO: save?
+    path = '{}/p/{}'.format(instance.uuid, filename)
+    return path
+
+
+class EntityBase(TimeStampedModel):
+    class Meta(TimeStampedModel.Meta):
+        # Cancel the ordering specified in TimeStampedModel because
+        # that would incur a performance burden on all Entity queries.
+        ordering = []
         abstract = True
+
+    # We can use this as a path to this entity's media files
+    uuid = PostgreSQLUUIDField(unique=True)
+
+    # Public URL slug
+    slug = AutoSlugField(populate_from='title')
 
     title = models.CharField(max_length=200)
     brief = models.CharField(max_length=200, blank=True)
@@ -16,7 +36,7 @@ class EntityBase(models.Model):
     website = models.URLField(blank=True)
 
     # Image to be displayed in place of the Lady
-    picture = models.ImageField(blank=True)
+    picture = models.ImageField(blank=True, upload_to=entityPicturePath)
 
     # Whether this profile can be viewed by anyone but its editors
     public = models.BooleanField(default=False)
