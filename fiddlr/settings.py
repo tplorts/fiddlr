@@ -19,7 +19,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 # computer, otherwise assuming that the environment is production.
 isProduction = False
 try:
-    open(os.path.join(BASE_DIR,'.dev'))
+    open(os.path.join(BASE_DIR, '.dev'))
 except IOError:
     isProduction = True
 
@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'djangobower',
     'rest_framework',
     'django_extensions',
+    'storages',
 )
 
 REST_FRAMEWORK = {
@@ -96,7 +97,7 @@ ALLOWED_HOSTS = ['*']
 
 # Static asset configuration
 STATIC_ROOT = 'staticfiles'
-STATIC_URL = '/static/'
+
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
@@ -137,3 +138,21 @@ BOWER_INSTALLED_APPS = (
 
 # API key used for Google Maps etc.
 GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
+
+
+###################
+# S3 STATIC FILES #
+###################
+
+AWS_QUERYSTRING_AUTH = False
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+AWS_PRELOAD_METADATA = True #helps collectstatic do updates
+
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+S3_BUCKET_URL = 'https://{}.s3.amazonaws.com/'.format(AWS_STORAGE_BUCKET_NAME)
+STATIC_URL = S3_BUCKET_URL + 'static/'
+MEDIA_URL = S3_BUCKET_URL + 'media/'

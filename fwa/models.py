@@ -11,9 +11,7 @@ from django_extensions.db.fields import PostgreSQLUUIDField, AutoSlugField
 
 
 def entityPicturePath(instance, filename):
-    if instance.uuid is None:
-        pass #TODO: save?
-    path = '{}/p/{}'.format(instance.uuid, filename)
+    path = 'media/entities/{}/p/{}'.format(instance.uuid, filename)
     return path
 
 
